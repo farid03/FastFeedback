@@ -10,6 +10,7 @@ import StudentConnect from "./components/student_connect/student_connect";
 import RoleDispatch from "./components/role_dispatch/role_dispatch";
 import StudentMain from "./components/student_main/student_main";
 import { CreateLection } from "./components/create_lection/create_lection";
+import { TeacherMain } from "./components/teacher_main/teacher_main";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/lection/teacher/:lectionId",
-    element: <div>Main lection page</div>,
+    element: <TeacherMain />,
   },
   {
     path: "/lection/connect",

@@ -1,15 +1,31 @@
 import { Button } from "antd";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+// import { useCookies } from "react-cookie";
+
+export type CreateLectionResponse = {
+  token: string;
+  sessionId: string;
+};
 
 const getLectionId = async () => {
-  return new Promise((resolve) => {
-    setTimeout(() => resolve(10), 1000);
+  const response: Response = await fetch("http://94.19.121.253/lections", {
+    method: "POST",
+    body: JSON.stringify([]),
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
+  if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
+  const lectionResponse: CreateLectionResponse = await response.json();
+  //TODO Save Token
+  return lectionResponse.sessionId;
 };
 
 export const CreateLection = () => {
   const navigate = useNavigate();
+  //const [cookies, setCookie] = useCookies();
+
   return (
     <div>
       <Button disabled>Импортировать конфигурацию</Button>
@@ -18,7 +34,6 @@ export const CreateLection = () => {
       <Button
         onClick={async () => {
           const lectionId = await getLectionId();
-
           navigate(`/lection/teacher/${lectionId}`);
         }}
         type="primary"
