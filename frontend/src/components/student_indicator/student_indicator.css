@@ -1,0 +1,37 @@
+div {
+  display: block;
+}
+
+.studentIndicatorDisplayElement {
+  padding: 0px;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+.studentIndicatorDisplay {
+  border: solid;
+  border-width: 2px;
+  border-color: black;
+  border-radius: 2px;
+  width: 40px;
+  height: 120px;
+  align-items: center;
+}
+
+.studentIndicator {
+  text-align: center;
+  width: 40px;
+}
+.studentIndicatorBtn {
+  appearance: none;
+  border: 2px solid black;
+  border-radius: 4px;
+  font-weight: bolder;
+  padding: 2px;
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

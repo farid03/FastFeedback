@@ -6,6 +6,11 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+import StudentConnect from "./components/student_connect/student_connect";
+import RoleDispatch from "./components/role_dispatch/role_dispatch";
+import StudentMain from "./components/student_main/student_main";
+import { CreateLection } from "./components/create_lection/create_lection";
+import { TeacherMain } from "./components/teacher_main/teacher_main";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -14,24 +19,24 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Select your fighter</div>,
+    element: <RoleDispatch />,
     errorElement: <div>Something went wrong</div>,
   },
   {
     path: "/create-lection",
-    element: <div>Here you can create your lection</div>,
+    element: <CreateLection />,
   },
   {
     path: "/lection/teacher/:lectionId",
-    element: <div>Main lection page</div>,
+    element: <TeacherMain />,
   },
   {
     path: "/lection/connect",
-    element: <div>Student lection connection page</div>,
+    element: <StudentConnect />,
   },
   {
     path: "/lection/student/:lectionId",
-    element: <div>Student lection page</div>,
+    element: <StudentMain />,
   },
   {
     path: "*", // Any other path will get you to the starting page

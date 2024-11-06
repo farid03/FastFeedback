@@ -1,0 +1,16 @@
+.indicatorContainer {
+  text-align: center;
+  width: fit-content;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
+  display: inline-block;
+}
+.indicatorsContainer {
+  text-align: center;
+}
+
+.studentMainPage {
+  text-align: center;
+}

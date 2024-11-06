@@ -13,4 +13,7 @@ export default [
   ...tseslint.configs.recommended,
   ...fixupConfigRules(pluginReactConfig),
   eslintPluginPrettierRecommended,
+  {
+    ignores: ["!src/**"],
+  },
 ];
