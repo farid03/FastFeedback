@@ -1,4 +1,5 @@
 import React from "react";
+import "./student_indicator.css";
 
 export type StudentIndicatorProps = {
   val: number;
@@ -18,30 +19,42 @@ function StudentIndicator({ val, setVal }: StudentIndicatorProps) {
     }
   }
 
-  function getColor() {
-    if (val === 0) return "red";
-    if (val === 1) return "yellow";
-    if (val === 2) return "green";
+  function getDisplayElementsStyle(element: number): React.CSSProperties {
+    let color = "transparent";
+    if (val === 0 && element === 0) {
+      color = "red";
+    }
+    if (val === 1 && element <= 1) {
+      color = "yellow";
+    }
+    if (val === 2) {
+      color = "green";
+    }
+    return { backgroundColor: color };
   }
 
   return (
     <div className="studentIndicator">
-      <link rel="stylesheet" href="student_indicator.css" />
       <button className="studentIndicatorBtn" onClick={increaseVal}>
         +
       </button>
       <div className="studentIndicatorDisplay">
-        <div className="studentIndicatorDisplayElement" id="displayHigh">
-          2
-        </div>
-        <div className="studentIndicatorDisplayElement" id="displayMedium">
-          1
-        </div>
-        <div className="studentIndicatorDisplayElement" id="displayLow">
-          0
-        </div>
+        <div
+          className="studentIndicatorDisplayElement"
+          id="displayHigh"
+          style={getDisplayElementsStyle(2)}
+        ></div>
+        <div
+          className="studentIndicatorDisplayElement"
+          id="displayMedium"
+          style={getDisplayElementsStyle(1)}
+        ></div>
+        <div
+          className="studentIndicatorDisplayElement"
+          id="displayLow"
+          style={getDisplayElementsStyle(0)}
+        ></div>
       </div>
-      <div className="studentIndicatorDisplayElement" id="displayLow"></div>
       <button className="studentIndicatorBtn" onClick={decreaseVal}>
         -
       </button>

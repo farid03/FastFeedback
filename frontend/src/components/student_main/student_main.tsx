@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import StudentIndicator from "../student_indicator/student_indicator";
+import "./student_main.css";
 
 function StudentMain() {
   const [vibe, setVibe] = useState(1);
@@ -16,13 +17,7 @@ function StudentMain() {
           <StudentIndicator val={vibe} setVal={setVibe} />
         </div>
       </div>
-      <form>
-        <input type="submit" value="ЖЁСТКИЙ НЕПОН" />
-      </form>
-      <div>
-        vibe: {vibe}
-        pon: {pon}
-      </div>
+      <button className="hardNeponBtn">ЖЁСТКИЙ НЕПОН</button>
     </div>
   );
 }
