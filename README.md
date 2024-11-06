@@ -3,7 +3,7 @@
 ## Frontend Setup
 
 1. Install nvm (Node Version Manager)
-1. In the root of the repo (NOT! in /frontend) use `nvm use`
+1. In the root of the repo (NOT! in /frontend) use `nvm install`
 1. In the root of the repo use `npm install`
 1. In /frontend use `npm install`
 
