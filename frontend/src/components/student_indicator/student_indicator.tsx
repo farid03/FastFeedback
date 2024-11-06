@@ -1,6 +1,11 @@
 import React from "react";
 
-function StudentIndicator({ val, setVal }) {
+export type StudentIndicatorProps = {
+  val: number;
+  setVal: (newVal: number) => void;
+};
+
+function StudentIndicator({ val, setVal }: StudentIndicatorProps) {
   function increaseVal() {
     if (val < 2) {
       setVal(val + 1);
