@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import StudentConnect from "./components/student_connect/student_connect";
 import RoleDispatch from "./components/role_dispatch/role_dispatch";
+import StudentMain from "./components/student_main/student_main";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/lection/student/:lectionId",
-    element: <div>Student lection page</div>,
+    element: <StudentMain />,
   },
   {
     path: "*", // Any other path will get you to the starting page
