@@ -1,6 +1,10 @@
 import { Button } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {
+  CreateConfigurationModal,
+  Event,
+} from "./create_configuration_modal/create_configuration_modal";
 // import { useCookies } from "react-cookie";
 
 export type CreateLectionResponse = {
@@ -19,6 +23,7 @@ const getLectionId = async () => {
   if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
   const lectionResponse: CreateLectionResponse = await response.json();
   //TODO Save Token
+  console.log(lectionResponse.token);
   return lectionResponse.sessionId;
 };
 
@@ -26,11 +31,17 @@ export const CreateLection = () => {
   const navigate = useNavigate();
   //const [cookies, setCookie] = useCookies();
 
+  const [lectionState, setLectionState] = useState<Event[]>([]);
+  const [isCreationModalOpen, setIsCreationModalOpen] =
+    useState<boolean>(false);
+
   return (
     <div>
       <Button disabled>Импортировать конфигурацию</Button>
       <Button disabled>Экспортировать конфигурацию</Button>
-      <Button disabled>Редактировать конфигурацию</Button>
+      <Button onClick={() => setIsCreationModalOpen(true)}>
+        Редактировать конфигурацию
+      </Button>
       <Button
         onClick={async () => {
           const lectionId = await getLectionId();
@@ -40,6 +51,12 @@ export const CreateLection = () => {
       >
         Начать лекцию
       </Button>
+      <CreateConfigurationModal
+        lectionState={lectionState}
+        setLectionState={setLectionState}
+        isOpen={isCreationModalOpen}
+        onClose={() => setIsCreationModalOpen(false)}
+      />
     </div>
   );
 };
