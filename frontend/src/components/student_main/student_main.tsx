@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import StudentIndicator from "../student_indicator/student_indicator";
 
 function StudentMain() {

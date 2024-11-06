@@ -5,10 +5,12 @@ function RoleDispatch() {
   return (
     <div className="roleDispatchPage">
       <header className="pageHeader">Выберите роль</header>
-      <button className="roleDispatchBtn"> Студент </button>
-      <button className="roleDispatchBtn">
-        <Link to="/create-lection">Преподаватель</Link>
-      </button>
+      <Link to="/lection/connect">
+        <button className="roleDispatchBtn"> Студент </button>
+      </Link>
+      <Link to="/create-lection">
+        <button className="roleDispatchBtn"> Преподаватель</button>
+      </Link>
     </div>
   );
 }
