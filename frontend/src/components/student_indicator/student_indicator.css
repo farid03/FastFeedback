@@ -5,23 +5,7 @@
   height: 40px;
 }
 
-.studentIndicatorDisplayElement#displayHigh {
-  background-color: green;
-}
-
-.studentIndicatorDisplayElement#displayMedium {
-  background-color: yellow;
-}
-
-.studentIndicatorDisplayElement#displayLow {
-  background-color: red;
-}
-
 .studentIndicatorBtn {
   width: 400px;
   height: 400px;
-}
-
-div {
-  background-color: black;
 }
