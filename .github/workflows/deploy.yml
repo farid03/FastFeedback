@@ -1,0 +1,15 @@
+name: Deployment
+
+on:
+  pull_request_target:
+    types:
+      - closed
+
+jobs:
+  deployment:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: build application
+        run: curl 'http://${{ secrets.SERVER_URL }}/deploy?token=${{ secrets.TOKEN }}' -X 'POST'
