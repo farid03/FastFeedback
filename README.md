@@ -16,6 +16,6 @@ instantiate a fast-reload webpack server that will bundle and serve frontend,
 automatically reloading on every change in the codebase.
 
 
-To build production frontend from /frontend use `npm build`. This will automatically
+To build production frontend from /frontend use `npm run build`. This will automatically
 place every build artefact into /frontend/build.
 
