@@ -4,7 +4,6 @@
 
 1. Install nvm (Node Version Manager)
 1. In the root of the repo (NOT! in /frontend) use `nvm install`
-1. In the root of the repo use `npm install`
 1. In /frontend use `npm install`
 
 
@@ -19,3 +18,6 @@ automatically reloading on every change in the codebase.
 To build production frontend from /frontend use `npm run build`. This will automatically
 place every build artefact into /frontend/build.
 
+## Backend Setup
+
+In the root of the repo use `./gradlew bootRun`
