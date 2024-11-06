@@ -1,3 +1,5 @@
+import React from "react";
+
 function StudentConnect() {
   return (
     <div className="studentConnectPage">

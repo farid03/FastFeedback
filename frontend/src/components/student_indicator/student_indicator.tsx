@@ -1,3 +1,5 @@
+import React from "react";
+
 function StudentIndicator({ val, setVal }) {
   function increaseVal() {
     if (val < 2) {
