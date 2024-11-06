@@ -1,16 +1,20 @@
-import React from "react";
+import { Button, InputNumber } from "antd";
+import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 
 function StudentConnect() {
+  const [lectionId, setLectionId] = useState<number | null>();
   return (
     <div className="studentConnectPage">
-      <form>
-        <input type="text" title="ID Лекции"></input>
-        <Link to={`/lection/student/1`}>
-          <input type="submit" value="Подключиться"></input>
-        </Link>
-      </form>
+      <InputNumber
+        placeholder="Введите ID Лекции"
+        value={lectionId}
+        onChange={(value) => setLectionId(value)}
+      />
+      <Link to={`/lection/student/${lectionId}`}>
+        <Button disabled={!lectionId}>Подключиться</Button>
+      </Link>
     </div>
   );
 }

@@ -3,8 +3,8 @@ import StudentIndicator from "../student_indicator/student_indicator";
 import "./student_main.css";
 
 function StudentMain() {
-  const [vibe, setVibe] = useState(1);
-  const [pon, setPon] = useState(1);
+  const [vibe, setVibe] = useState<number>(1);
+  const [pon, setPon] = useState<number>(1);
   return (
     <div className="studentMainPage">
       <div className="indicatorsContainer">
