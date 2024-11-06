@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: build application
+      - name: build and deploy application
         run: curl '${{ secrets.SERVER_URL }}/deploy?token=${{ secrets.TOKEN }}' -X 'POST'
