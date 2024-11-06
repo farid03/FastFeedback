@@ -25,6 +25,7 @@ val versions = libs.versions
 dependencies {
     // spring
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 //	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // раскомментить когда появится БД
 
     // kotlin
