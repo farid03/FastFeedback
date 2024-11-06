@@ -6,6 +6,8 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
+import StudentConnect from "./components/student_connect/student_connect";
+import RoleDispatch from "./components/role_dispatch/role_dispatch";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -14,7 +16,7 @@ const root = ReactDOM.createRoot(
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Select your fighter</div>,
+    element: <RoleDispatch />,
     errorElement: <div>Something went wrong</div>,
   },
   {
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/lection/connect",
-    element: <div>Student lection connection page</div>,
+    element: <StudentConnect />,
   },
   {
     path: "/lection/student/:lectionId",
