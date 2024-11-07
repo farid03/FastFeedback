@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Flex } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -39,22 +39,28 @@ export const CreateLection = () => {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState<boolean>(false);
 
   return (
-    <div>
-      <Button onClick={() => setIsUploadModalOpen(true)}>
-        Импортировать конфигурацию
-      </Button>
-      <Button onClick={() => downloadConfiguration(lectionState)}>
-        Экспортировать конфигурацию
-      </Button>
-      <Button onClick={() => setIsCreationModalOpen(true)}>
-        Редактировать конфигурацию
-      </Button>
+    <Flex vertical={true} gap="middle">
+      <Flex gap="middle">
+        <Button onClick={() => setIsUploadModalOpen(true)} size="large">
+          Импортировать конфигурацию
+        </Button>
+        <Button
+          onClick={() => downloadConfiguration(lectionState)}
+          size="large"
+        >
+          Экспортировать конфигурацию
+        </Button>
+        <Button onClick={() => setIsCreationModalOpen(true)} size="large">
+          Редактировать конфигурацию
+        </Button>
+      </Flex>
       <Button
         onClick={async () => {
           const lectionId = await getLectionId(lectionState);
           navigate(`/lection/teacher/${lectionId}`);
         }}
         type="primary"
+        size="large"
       >
         Начать лекцию
       </Button>
@@ -69,6 +75,6 @@ export const CreateLection = () => {
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
       />
-    </div>
+    </Flex>
   );
 };

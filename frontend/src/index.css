@@ -5,6 +5,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+
+#root {
+  height: fit-content;
+  position: relative;
+  top: 30%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+html {
+  height: 100%;
 }
 
 code {
