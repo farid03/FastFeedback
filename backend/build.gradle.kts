@@ -54,6 +54,12 @@ allOpen {
     annotation("jakarta.persistence.Embeddable")
 }
 
+tasks.processResources {
+    from("src/main/resources/") {
+        include("**/*")
+    }
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
 }
