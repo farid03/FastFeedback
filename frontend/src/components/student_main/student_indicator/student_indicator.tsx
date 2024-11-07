@@ -50,7 +50,7 @@ function StudentIndicator({ val, setVal }: StudentIndicatorProps) {
           steps={3}
           showInfo={false}
           strokeColor={getColors()}
-          size={[50, 50]}
+          size={[80, 80]}
         ></Progress>
       </div>
       <Button

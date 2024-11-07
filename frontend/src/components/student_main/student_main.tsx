@@ -37,19 +37,19 @@ function StudentMain() {
       <div className="indicatorsContainer">
         <div className="indicatorContainer">
           <p>пон</p>
-          <div>
+          <div className="indicatorWrapper">
             <StudentIndicator val={pon} setVal={setPon} />
           </div>
         </div>
         <div className="indicatorContainer">
           <p>вайб</p>
-          <div>
+          <div className="indicatorWrapper">
             <StudentIndicator val={vibe} setVal={setVibe} />
           </div>
         </div>
       </div>
       <p>
-        <Button className="hardNeponBtn" type="primary" size="large">
+        <Button className="hardNePonBtn" type="primary" size="large">
           ЖЁСТКИЙ НЕПОН
         </Button>
       </p>
