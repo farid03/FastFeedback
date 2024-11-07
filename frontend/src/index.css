@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -9,16 +10,16 @@ body {
 }
 
 #root {
-  height: fit-content;
-  position: relative;
-  top: 30%;
   display: flex;
-  align-content: center;
+  align-items: center;
   justify-content: center;
+  height: 100%;
+  overflow: hidden;
 }
 
 html {
   height: 100%;
+  overflow: hidden;
 }
 
 code {
