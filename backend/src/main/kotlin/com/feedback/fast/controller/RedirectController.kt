@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 class RedirectController {
     @RequestMapping("/**")
     fun redirectToHome(): String {
-        return "redirect:/index.html"
+        return "redirect:/static/index.html"
     }
 }
