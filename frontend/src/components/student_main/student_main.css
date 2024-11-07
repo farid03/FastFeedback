@@ -12,5 +12,16 @@
 }
 
 .studentMainPage {
+  display: block;
+  align-items: center;
   text-align: center;
+  justify-content: center;
+}
+
+.studentMainPage > * {
+  display: block;
+}
+
+.hardNePonBtn {
+  display: block;
 }
