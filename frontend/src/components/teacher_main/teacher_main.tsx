@@ -105,6 +105,13 @@ const stopCurrentEvent = async (
   onSuccess();
 };
 
+const playNePonSound = () => {
+  const soundUrl =
+    "https://www.myinstants.com/media/sounds/red-siren-alert.mp3";
+  const sound = new Audio(soundUrl);
+  sound.play();
+};
+
 export const TeacherMain = () => {
   const [currentStats, setCurrentStats] = useState<LectionStats>({
     vibe_level: 3,
@@ -120,7 +127,7 @@ export const TeacherMain = () => {
   useEffect(() => {
     if (!token || !lectionId) return;
     const id = setInterval(
-      () => getCurrentStats(lectionId, token, setCurrentStats, () => {}),
+      () => getCurrentStats(lectionId, token, setCurrentStats, playNePonSound),
       5000,
     );
 
