@@ -23,7 +23,6 @@
 }
 
 .indicator-label {
-  font-size: 500%;
   margin: 0;
   align-self: center;
 }
@@ -32,7 +31,6 @@
   width: 80%;
   height: 20%;
   margin-bottom: 80px;
-  font-size: 400%;
   display: flex;
   flex-direction: column;
 }
