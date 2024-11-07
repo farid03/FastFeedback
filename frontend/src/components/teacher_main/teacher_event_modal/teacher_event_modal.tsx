@@ -3,6 +3,9 @@ import { Modal, Tag, Progress, ProgressProps, Button } from "antd";
 import { QuickEvent } from "../../create_lection/create_configuration_modal/create_configuration_modal";
 import { Navigate, useParams } from "react-router-dom";
 
+import "./teacher_event_modal.css";
+import { useCookies } from "react-cookie";
+
 const twoColors: ProgressProps["strokeColor"] = {
   "0%": "#ce0071",
   "100%": "#87d068",
@@ -29,7 +32,7 @@ const getCurrentEventStats = async (
   updateStats: (stats: EventStats) => void,
 ) => {
   const response: Response = await fetch(
-    `http://fastfeedback.sknt.ru/lections/${lessonId}/polls/${eventId}/stats`,
+    `http://fastfeedback.sknt.ru:8080/lections/${lessonId}/polls/${eventId}/stats`,
     {
       method: "GET",
       headers: {
@@ -54,7 +57,10 @@ export const TeacherEventModal = ({
   const [currentEventStats, setCurrentEventStats] = useState<EventStats>();
 
   const { lectionId } = useParams() as { lectionId: string };
-  const token = "placeholder";
+
+  const [cookies] = useCookies(["token"]);
+
+  const token: string | undefined = cookies["token"];
 
   useEffect(() => {
     console.log(lectionId, token, isEventEnded);
@@ -75,64 +81,67 @@ export const TeacherEventModal = ({
   console.log(currentEvent.correct_answer_id);
 
   return (
-    <Modal
-      className="teacher-event-modal"
-      open={isOpen}
-      onClose={onClose}
-      onCancel={onClose}
-      footer={[]}
-    >
-      {currentEventStats && (
-        <div className="teacher-event-stats">
-          <Progress
-            type="dashboard"
-            percent={Math.round(
-              (currentEventStats.completed_poll_count /
-                currentEventStats.connected_users_count) *
-                100,
-            )}
-            strokeColor={twoColors}
-            status="active"
-            format={() =>
-              `Сдано: ${currentEventStats.completed_poll_count}/${currentEventStats.connected_users_count}`
-            }
-          />
-          <Progress
-            type="dashboard"
-            percent={Math.round(
-              (currentEventStats.correct_responses_count /
-                currentEventStats.completed_poll_count) *
-                100,
-            )}
-            strokeColor={twoColors}
-            status="active"
-            format={() =>
-              `Верно: ${currentEventStats.correct_responses_count}/${currentEventStats.completed_poll_count}`
-            }
-          />
+    <Modal open={isOpen} onClose={onClose} onCancel={onClose} footer={[]}>
+      <div className="teacher-event-modal">
+        {currentEventStats && (
+          <div className="teacher-event-stats">
+            <Progress
+              type="dashboard"
+              percent={Math.round(
+                (currentEventStats.completed_poll_count /
+                  currentEventStats.connected_users_count) *
+                  100,
+              )}
+              strokeColor={twoColors}
+              status="active"
+              format={() =>
+                `Сдано: ${currentEventStats.completed_poll_count}/${currentEventStats.connected_users_count}`
+              }
+              size={200}
+            />
+            <Progress
+              type="dashboard"
+              percent={Math.round(
+                (currentEventStats.correct_responses_count /
+                  currentEventStats.completed_poll_count) *
+                  100,
+              )}
+              strokeColor={twoColors}
+              status="active"
+              format={() =>
+                `Верно: ${currentEventStats.correct_responses_count}/${currentEventStats.completed_poll_count}`
+              }
+              size={200}
+            />
+          </div>
+        )}
+        <div className="teacher-event-modal-question">
+          <span>{currentEvent.text}</span>
         </div>
-      )}
-      <div className="teacher-event-modal-question">
-        <span>{currentEvent.text}</span>
+        <div className="teacher-event-modal-answers">
+          {currentEvent.answers.map((answer, idx) => (
+            <Tag
+              key={idx}
+              className="teacher-event-modal-answer"
+              color={
+                idx === currentEvent.correct_answer_id && isEventEnded
+                  ? "green"
+                  : undefined
+              }
+            >
+              {answer}
+            </Tag>
+          ))}
+        </div>
+        <Button
+          size="large"
+          disabled={isEventEnded}
+          onClick={stopEvent}
+          type="primary"
+        >
+          Завершить событие
+        </Button>
       </div>
-      <div className="teacher-event-modal-answers">
-        {currentEvent.answers.map((answer, idx) => (
-          <Tag
-            key={idx}
-            className="teacher-event-modal-answer"
-            color={
-              idx === currentEvent.correct_answer_id && isEventEnded
-                ? "green"
-                : undefined
-            }
-          >
-            {answer}
-          </Tag>
-        ))}
-      </div>
-      <Button disabled={isEventEnded} onClick={stopEvent} type="primary">
-        Завершить событие
-      </Button>
     </Modal>
   );
 };

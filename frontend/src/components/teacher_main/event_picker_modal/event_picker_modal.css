@@ -1,0 +1,11 @@
+.event-picker-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-picker-body .header {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+}

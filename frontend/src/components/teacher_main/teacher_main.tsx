@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-//import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { Progress, ProgressProps, QRCode, Button, Flex } from "antd";
 
 import "./teacher_main.css";
@@ -25,7 +25,7 @@ const getCurrentStats = async (
   playSound: () => void,
 ) => {
   const response: Response = await fetch(
-    `http://fastfeedback.sknt.ru/lections/${lectionId}/stats`,
+    `http://fastfeedback.sknt.ru:8080/lections/${lectionId}/stats`,
     {
       method: "GET",
       headers: {
@@ -50,7 +50,7 @@ const getAllEvents = async (
   updateEvents: (events: QuickEvent[]) => void,
 ) => {
   const response: Response = await fetch(
-    `http://fastfeedback.sknt.ru/lections/${lectionId}/events`,
+    `http://fastfeedback.sknt.ru:8080/lections/${lectionId}/events`,
     {
       method: "GET",
       headers: {
@@ -73,7 +73,7 @@ const startEvent = async (
   onSuccess: () => void,
 ) => {
   const response: Response = await fetch(
-    `http://fastfeedback.sknt.ru/lections/${lectionId}/events/${event.id}`,
+    `http://fastfeedback.sknt.ru:8080/lections/${lectionId}/events/${event.id}`,
     {
       method: "POST",
       headers: {
@@ -92,7 +92,7 @@ const stopCurrentEvent = async (
   onSuccess: () => void,
 ) => {
   const response: Response = await fetch(
-    `http://fastfeedback.sknt.ru/lections/${lectionId}/events`,
+    `http://fastfeedback.sknt.ru:8080/lections/${lectionId}/events`,
     {
       method: "DELETE",
       headers: {
@@ -115,14 +115,13 @@ const playNePonSound = () => {
 export const TeacherMain = () => {
   const [currentStats, setCurrentStats] = useState<LectionStats>({
     vibe_level: 3,
-    pon_level: 2.1,
+    pon_level: 3,
   });
 
   const { lectionId } = useParams() as { lectionId: string };
-  //const [cookies] = useCookies(["token"]);
+  const [cookies] = useCookies(["token"]);
 
-  //const token: string | undefined = cookies["token"];
-  const token = "placeholder";
+  const token: string | undefined = cookies["token"];
 
   useEffect(() => {
     if (!token || !lectionId) return;
@@ -167,7 +166,7 @@ export const TeacherMain = () => {
                 strokeColor={twoColors}
                 status="active"
                 format={(precent) => `Пон: ${precent}`}
-                size={[300, 300]}
+                size={300}
               />
               <Progress
                 type="dashboard"
@@ -175,7 +174,7 @@ export const TeacherMain = () => {
                 strokeColor={twoColors}
                 status="active"
                 format={(precent) => `Вайб: ${precent}`}
-                size={[300, 300]}
+                size={300}
               />
             </Flex>
           </div>
