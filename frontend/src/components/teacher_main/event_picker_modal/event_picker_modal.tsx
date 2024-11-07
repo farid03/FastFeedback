@@ -2,6 +2,8 @@ import React from "react";
 import { QuickEvent } from "../../create_lection/create_configuration_modal/create_configuration_modal";
 import { Modal, Carousel, Button } from "antd";
 
+import "./event_picker_modal.css";
+
 export type EventPickerModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -16,6 +18,7 @@ const eventStyle: React.CSSProperties = {
   background: "#ce0071",
   display: "flex",
   flexDirection: "column",
+  gap: 4,
   alignItems: "center",
   justifyContent: "center",
   borderRadius: 4,
@@ -36,7 +39,9 @@ export const EventPickerModal = ({
       footer={[]}
     >
       <div className="event-picker-body">
-        <span>Выберите событие, которое необходимо начать:</span>
+        <span className="header">
+          Выберите событие, которое необходимо начать:
+        </span>
         <div className="event-picker-container">
           <Carousel arrows infinite={false}>
             {events.map((event) => (
