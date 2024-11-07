@@ -1,7 +1,6 @@
 package com.feedback.fast.controller
 
 import com.feedback.fast.service.ButtonService
-import com.feedback.fast.service.security.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
 import org.springframework.http.ResponseEntity
@@ -17,12 +16,9 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class ButtonController(
     private val buttonService: ButtonService,
-    private val userService: UserService, //TODO UDALIT'
 ) {
     @PostMapping
     fun pressButton(@PathVariable("lection_id") lectionId: String): ResponseEntity<String> {
-        println(userService.currentUser.username)
-        
         return ResponseEntity<String>(buttonService.pressButton(lectionId), HttpStatus.OK)
     }
 }
