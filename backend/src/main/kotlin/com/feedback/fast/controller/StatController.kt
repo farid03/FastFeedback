@@ -1,5 +1,6 @@
 package com.feedback.fast.controller
 
+import com.feedback.fast.dto.CurrentEventDto
 import com.feedback.fast.dto.StatRequestDto
 import com.feedback.fast.dto.StatResponseDto
 import com.feedback.fast.service.StatService
@@ -25,7 +26,7 @@ class StatController(
     fun updateLectionStat(
         @PathVariable("lection_id") lectionId: String,
         @RequestBody statRequestDto: StatRequestDto
-    ): ResponseEntity<StatResponseDto> {
-        return ResponseEntity<StatResponseDto>(statService.updateLectionStat(lectionId, statRequestDto), HttpStatus.OK)
+    ): ResponseEntity<CurrentEventDto> {
+        return ResponseEntity<CurrentEventDto>(statService.updateLectionStat(lectionId, statRequestDto), HttpStatus.OK)
     }
 }

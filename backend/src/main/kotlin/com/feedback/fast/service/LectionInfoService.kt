@@ -40,12 +40,11 @@ class LectionInfoService(
         return responseStat
     }
 
-    fun updateLectionStats(uuid: String, vibeLevel: Double, ponLevel: Double): StatResponseDto {
+    fun updateLectionStats(uuid: String, vibeLevel: Double, ponLevel: Double) {
         var stat = lectionsWithStatLevels[uuid] ?: throw RuntimeException("Lecturer $uuid not found")
         stat.vibeLevel = (stat.vibeLevel + vibeLevel) / 2
         stat.ponLevel = (stat.ponLevel + ponLevel) / 2
         lectionsWithStatLevels[uuid] = stat
-        return stat
     }
 
     fun pressButton(uuid: String) {
