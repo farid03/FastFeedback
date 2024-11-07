@@ -1,38 +1,28 @@
-.studentIndicatorDisplay {
-  transform: rotate(270deg);
-  transform-origin: 0% 50%;
-  display: inline-block;
+.studentIndicator {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
-
-.studentIndicatorDisplay > * {
-  position: relative;
-  top: 40px;
-  left: -84%;
-  height: 80px;
-}
-
 .studentIndicatorBtn {
   width: 100%;
   height: 80px;
-}
-
-.studentIndicator {
-  text-align: center;
-  width: 80px;
-}
-
-.studentIndicator > * {
-  display: block;
-}
-
-.studentIndicatorBtn {
   border-radius: 4px;
   font-weight: bolder;
-  padding: 2px;
   margin-top: 10px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 500%;
+  line-height: 1;
+  padding: 0;
 }
 
-.displayWrapper {
-  height: 250px;
+.indicator-square {
+  width: 100%;
+  flex-grow: 1;
 }

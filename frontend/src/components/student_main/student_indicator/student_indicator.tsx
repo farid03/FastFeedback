@@ -1,6 +1,6 @@
 import React from "react";
 import "./student_indicator.css";
-import { Button, Progress } from "antd";
+import { Button } from "antd";
 
 export type StudentIndicatorProps = {
   val: number;
@@ -20,20 +20,6 @@ function StudentIndicator({ val, setVal }: StudentIndicatorProps) {
     }
   }
 
-  function getColors(): string[] {
-    let color = ["transparent"];
-    if (val === 0) {
-      color = ["#ef2b32", "transparent", "transparent"];
-    }
-    if (val === 1) {
-      color = ["#efcc0d", "#efcc0d", "transparent"];
-    }
-    if (val === 2) {
-      color = ["#a5f438", "#a5f438", "#a5f438"];
-    }
-    return color;
-  }
-
   return (
     <div className="studentIndicator">
       <Button
@@ -43,16 +29,26 @@ function StudentIndicator({ val, setVal }: StudentIndicatorProps) {
       >
         +
       </Button>
-      <div className="displayWrapper">
-        <Progress
-          className="studentIndicatorDisplay"
-          percent={((val + 1) * 100) / 3}
-          steps={3}
-          showInfo={false}
-          strokeColor={getColors()}
-          size={[80, 80]}
-        ></Progress>
-      </div>
+      <div
+        className="indicator-square"
+        style={{
+          backgroundColor: val === 2 ? "#a5f438" : "white",
+        }}
+      />
+      <div
+        className="indicator-square"
+        style={{
+          backgroundColor:
+            val === 2 ? "#a5f438" : val === 1 ? "#efcc0d" : "white",
+        }}
+      />
+      <div
+        className="indicator-square"
+        style={{
+          backgroundColor:
+            val === 2 ? "#a5f438" : val === 1 ? "#efcc0d" : "#ef2b32",
+        }}
+      />
       <Button
         className="studentIndicatorBtn"
         id="btnMinus"
