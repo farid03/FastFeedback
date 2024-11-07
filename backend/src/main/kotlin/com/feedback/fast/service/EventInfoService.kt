@@ -4,6 +4,7 @@ import com.feedback.fast.dto.EventDto
 import com.feedback.fast.dto.PollAnswerDto
 import com.feedback.fast.dto.PollStatDto
 import org.springframework.stereotype.Service
+import java.util.*
 
 @Service
 class EventInfoService() {
@@ -21,7 +22,7 @@ class EventInfoService() {
         val event = lictionsEvents[lectionId]?.find { it.id == pollId }
             ?: throw IllegalArgumentException("Event with id $pollId not found")
         val stat = lectionsPollStatsDto[lectionId] ?: PollStatDto()
-        stat.connectedUsersCount = lectionsWithConnectedUsersCount[lectionId]!!
+        stat.connectedUsersCount = lectionsWithConnectedUsersCount[lectionId] ?: 0
         stat.completedPollCount += 1
         if (answer.answer == event.answers[event.correctAnswerId]) {
             stat.correctResponsesCount += 1
@@ -39,8 +40,19 @@ class EventInfoService() {
     }
 
     fun startEvent(lectionId: String, eventId: Int) {
+        val event = lictionsEvents[lectionId]?.find { it.id == eventId }
+            ?: throw IllegalArgumentException("Event with id $eventId not found")
         lectionsWithCurrentEvent[lectionId] = eventId
         lectionsPollStatsDto[lectionId] = PollStatDto()
+
+        if (event.timeout != null) {
+            Timer().schedule(object : TimerTask() {
+                override fun run() {
+                    lectionsWithCurrentEvent.remove(lectionId)
+                    lectionsPollStatsDto.remove(lectionId)
+                }
+            }, event.timeout * 1000)
+        }
     }
 
     fun stopEvent(lectionId: String) {

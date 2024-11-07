@@ -8,5 +8,5 @@ data class EventDto(
     val text: String,
     val answers: List<String>,
     @JsonProperty("correct_answer_id") val correctAnswerId: Int,
-    val timeout: Int
+    val timeout: Long?
 )
