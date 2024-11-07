@@ -1,3 +1,4 @@
 [versions]
 springdoc = "2.6.0"
 kotest = "5.9.1"
+jsonWebTokenLib = "0.12.3"

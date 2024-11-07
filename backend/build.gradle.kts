@@ -28,6 +28,12 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
 //	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // раскомментить когда появится БД
 
+    // jwt
+    implementation("io.jsonwebtoken:jjwt-api:${versions.jsonWebTokenLib.get()}")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:${versions.jsonWebTokenLib.get()}")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:${versions.jsonWebTokenLib.get()}")
+
+
     // kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
