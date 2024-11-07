@@ -7,14 +7,14 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RequestMapping(
-    value = ["/lections/{lection_id}/events/{event_id}"],
+    value = ["/lections/{lection_id}/events"],
     produces = [APPLICATION_JSON_VALUE]
 )
 @RestController
 class EventController(
     private val eventService: EventService,
 ) {
-    @PostMapping
+    @PostMapping("/{event_id}")
     fun start(
         @PathVariable("lection_id") lectionId: String,
         @PathVariable("event_id") eventId: Int
