@@ -11,6 +11,7 @@ import RoleDispatch from "./components/role_dispatch/role_dispatch";
 import StudentMain from "./components/student_main/student_main";
 import { CreateLection } from "./components/create_lection/create_lection";
 import { TeacherMain } from "./components/teacher_main/teacher_main";
+import { ConfigProvider } from "antd";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -46,6 +47,8 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ConfigProvider theme={{ token: { colorPrimary: "#ce0071" } }}>
+      <RouterProvider router={router} />
+    </ConfigProvider>
   </React.StrictMode>,
 );
