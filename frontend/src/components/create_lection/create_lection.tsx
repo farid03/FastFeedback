@@ -5,6 +5,8 @@ import {
   CreateConfigurationModal,
   Event,
 } from "./create_configuration_modal/create_configuration_modal";
+import downloadConfiguration from "./download_configuration/download_configuration";
+import UploadConfigurationModal from "./upload_configuration_modal/upload_configuration_modal";
 // import { useCookies } from "react-cookie";
 
 export type CreateLectionResponse = {
@@ -34,11 +36,16 @@ export const CreateLection = () => {
   const [lectionState, setLectionState] = useState<Event[]>([]);
   const [isCreationModalOpen, setIsCreationModalOpen] =
     useState<boolean>(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState<boolean>(false);
 
   return (
     <div>
-      <Button disabled>Импортировать конфигурацию</Button>
-      <Button disabled>Экспортировать конфигурацию</Button>
+      <Button onClick={() => setIsUploadModalOpen(true)}>
+        Импортировать конфигурацию
+      </Button>
+      <Button onClick={() => downloadConfiguration(lectionState)}>
+        Экспортировать конфигурацию
+      </Button>
       <Button onClick={() => setIsCreationModalOpen(true)}>
         Редактировать конфигурацию
       </Button>
@@ -56,6 +63,11 @@ export const CreateLection = () => {
         setLectionState={setLectionState}
         isOpen={isCreationModalOpen}
         onClose={() => setIsCreationModalOpen(false)}
+      />
+      <UploadConfigurationModal
+        setLectionState={setLectionState}
+        isOpen={isUploadModalOpen}
+        onClose={() => setIsUploadModalOpen(false)}
       />
     </div>
   );
