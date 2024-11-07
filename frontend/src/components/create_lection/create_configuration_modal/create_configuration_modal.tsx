@@ -6,7 +6,7 @@ export type QuickEvent = {
   type: "poll";
   text: string;
   answers: string[];
-  correctAnswerId: number;
+  correct_answer_id: number;
   timeout?: number;
 };
 
@@ -129,7 +129,7 @@ export const CreateConfigurationModal = ({
                   type: "poll",
                   text: newTextField,
                   answers: newAnswers,
-                  correctAnswerId: newRightIndex,
+                  correct_answer_id: newRightIndex,
                   timeout: newTimeout,
                 },
               ])

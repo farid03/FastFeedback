@@ -36,18 +36,28 @@ function StudentIndicator({ val, setVal }: StudentIndicatorProps) {
 
   return (
     <div className="studentIndicator">
-      <Button className="studentIndicatorBtn" onClick={increaseVal}>
+      <Button
+        className="studentIndicatorBtn"
+        id="btnPlus"
+        onClick={increaseVal}
+      >
         +
       </Button>
-      <Progress
-        className="studentIndicatorDisplay"
-        percent={((val + 1) * 100) / 3}
-        steps={3}
-        showInfo={false}
-        size={[80, 80]}
-        strokeColor={getColors()}
-      ></Progress>
-      <Button className="studentIndicatorBtn" onClick={decreaseVal}>
+      <div className="displayWrapper">
+        <Progress
+          className="studentIndicatorDisplay"
+          percent={((val + 1) * 100) / 3}
+          steps={3}
+          showInfo={false}
+          strokeColor={getColors()}
+          size={[80, 80]}
+        ></Progress>
+      </div>
+      <Button
+        className="studentIndicatorBtn"
+        id="btnMinus"
+        onClick={decreaseVal}
+      >
         -
       </Button>
     </div>

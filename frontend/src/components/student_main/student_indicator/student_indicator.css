@@ -1,16 +1,28 @@
-div {
-  display: block;
-}
-
 .studentIndicatorDisplay {
   transform: rotate(270deg);
   transform-origin: 0% 50%;
   display: inline-block;
 }
 
+.studentIndicatorDisplay > * {
+  position: relative;
+  top: 40px;
+  left: -84%;
+  height: 80px;
+}
+
+.studentIndicatorBtn {
+  width: 100%;
+  height: 80px;
+}
+
 .studentIndicator {
   text-align: center;
-  width: 100%;
+  width: 80px;
+}
+
+.studentIndicator > * {
+  display: block;
 }
 
 .studentIndicatorBtn {
@@ -19,4 +31,8 @@ div {
   padding: 2px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+.displayWrapper {
+  height: 250px;
 }

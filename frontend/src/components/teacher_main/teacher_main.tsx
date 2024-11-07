@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import { Progress, ProgressProps, QRCode, Button } from "antd";
+//import { useCookies } from "react-cookie";
+import { Progress, ProgressProps, QRCode, Button, Flex } from "antd";
 
 import "./teacher_main.css";
 import { TeacherEventModal } from "./teacher_event_modal/teacher_event_modal";
@@ -105,6 +105,13 @@ const stopCurrentEvent = async (
   onSuccess();
 };
 
+const playNePonSound = () => {
+  const soundUrl =
+    "https://www.myinstants.com/media/sounds/red-siren-alert.mp3";
+  const sound = new Audio(soundUrl);
+  sound.play();
+};
+
 export const TeacherMain = () => {
   const [currentStats, setCurrentStats] = useState<LectionStats>({
     vibe_level: 3,
@@ -112,7 +119,7 @@ export const TeacherMain = () => {
   });
 
   const { lectionId } = useParams() as { lectionId: string };
-  const [cookies] = useCookies(["token"]);
+  //const [cookies] = useCookies(["token"]);
 
   //const token: string | undefined = cookies["token"];
   const token = "placeholder";
@@ -120,75 +127,77 @@ export const TeacherMain = () => {
   useEffect(() => {
     if (!token || !lectionId) return;
     const id = setInterval(
-      () => getCurrentStats(lectionId, token, setCurrentStats, () => {}),
+      () => getCurrentStats(lectionId, token, setCurrentStats, playNePonSound),
       5000,
     );
 
     return () => clearInterval(id);
   }, [token, lectionId, setCurrentStats]);
 
-  const [events, setEvents] = useState<QuickEvent[]>([
-    {
-      id: 0,
-      type: "poll",
-      text: "Попу мыл?",
-      answers: [],
-      correctAnswerId: 0,
-    },
-  ]);
+  const [events, setEvents] = useState<QuickEvent[]>([]);
 
   useEffect(() => {
     if (!token || !lectionId) return;
     getAllEvents(lectionId, token, setEvents);
   }, [token, lectionId, setEvents]);
 
-  const [isEventPickerOpen, setIsEventPickerOpen] = useState<boolean>(true);
+  const [isEventPickerOpen, setIsEventPickerOpen] = useState<boolean>(false);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const [currentEvent, setCurrentEvent] = useState<QuickEvent | undefined>();
 
+  const [isEventEnded, setIsEventEnded] = useState<boolean>(false);
+
   if (!token) return <Navigate to="/create-lection" />;
 
   return (
     <div className="teacher-main">
-      <div className="progress-container">
-        <Progress
-          type="dashboard"
-          percent={Math.round(((currentStats.pon_level - 1) / 2) * 100)}
-          strokeColor={twoColors}
-          status="active"
-          format={(precent) => `Пон: ${precent}`}
+      <Flex gap={150}>
+        <QRCode
+          value={`http://fastfeedback.sknt.ru/lection/student/${lectionId}`}
+          size={450}
         />
-        <Progress
-          type="dashboard"
-          percent={Math.round(((currentStats.vibe_level - 1) / 2) * 100)}
-          strokeColor={twoColors}
-          status="active"
-          format={(precent) => `Вайб: ${precent}`}
-        />
-      </div>
-      <QRCode
-        value={`http://fastfeedback.sknt.ru/lection/student/${lectionId}`}
-      />
-      <Button
-        className="start-event"
-        type="primary"
-        onClick={() => setIsEventPickerOpen(true)}
-      >
-        Начать событие
-      </Button>
+        <Flex vertical={true} gap="medium">
+          <div className="progress-container">
+            <Flex gap="large">
+              <Progress
+                type="dashboard"
+                percent={Math.round(((currentStats.pon_level - 1) / 2) * 100)}
+                strokeColor={twoColors}
+                status="active"
+                format={(precent) => `Пон: ${precent}`}
+                size={[300, 300]}
+              />
+              <Progress
+                type="dashboard"
+                percent={Math.round(((currentStats.vibe_level - 1) / 2) * 100)}
+                strokeColor={twoColors}
+                status="active"
+                format={(precent) => `Вайб: ${precent}`}
+                size={[300, 300]}
+              />
+            </Flex>
+          </div>
+          <Button
+            className="start-event"
+            type="primary"
+            onClick={() => setIsEventPickerOpen(true)}
+            size="large"
+          >
+            Начать событие
+          </Button>
+        </Flex>
+      </Flex>
       {!!currentEvent && (
         <TeacherEventModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          isEventEnded={true}
-          currentEventStats={{
-            connected_users_count: 10,
-            completed_poll_count: 8,
-            correct_responces_count: 0,
-          }}
+          onClose={() => isEventEnded && setIsModalOpen(false)}
+          isEventEnded={isEventEnded}
           currentEvent={currentEvent}
+          stopEvent={() =>
+            stopCurrentEvent(lectionId, token, () => setIsEventEnded(true))
+          }
         />
       )}
       <EventPickerModal
