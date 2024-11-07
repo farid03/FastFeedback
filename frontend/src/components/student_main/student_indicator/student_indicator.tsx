@@ -1,5 +1,6 @@
 import React from "react";
 import "./student_indicator.css";
+import { Button } from "antd";
 
 export type StudentIndicatorProps = {
   val: number;
@@ -22,22 +23,22 @@ function StudentIndicator({ val, setVal }: StudentIndicatorProps) {
   function getDisplayElementsStyle(element: number): React.CSSProperties {
     let color = "transparent";
     if (val === 0 && element === 0) {
-      color = "red";
+      color = "#ef2b32";
     }
     if (val === 1 && element <= 1) {
-      color = "yellow";
+      color = "#efcc0d";
     }
     if (val === 2) {
-      color = "green";
+      color = "#a5f438";
     }
     return { backgroundColor: color };
   }
 
   return (
     <div className="studentIndicator">
-      <button className="studentIndicatorBtn" onClick={increaseVal}>
+      <Button className="studentIndicatorBtn" onClick={increaseVal}>
         +
-      </button>
+      </Button>
       <div className="studentIndicatorDisplay">
         <div
           className="studentIndicatorDisplayElement"
@@ -55,9 +56,9 @@ function StudentIndicator({ val, setVal }: StudentIndicatorProps) {
           style={getDisplayElementsStyle(0)}
         ></div>
       </div>
-      <button className="studentIndicatorBtn" onClick={decreaseVal}>
+      <Button className="studentIndicatorBtn" onClick={decreaseVal}>
         -
-      </button>
+      </Button>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import StudentIndicator from "../student_indicator/student_indicator";
+import StudentIndicator from "./student_indicator/student_indicator";
 import "./student_main.css";
+import { Button } from "antd";
 
 type LectionInfo = {
   token: string;
@@ -43,7 +44,7 @@ function StudentMain() {
           <StudentIndicator val={vibe} setVal={setVibe} />
         </div>
       </div>
-      <button className="hardNeponBtn">ЖЁСТКИЙ НЕПОН</button>
+      <Button className="hardNeponBtn">ЖЁСТКИЙ НЕПОН</Button>
     </div>
   );
 }
