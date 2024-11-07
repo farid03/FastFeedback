@@ -1,6 +1,6 @@
-import { Event } from "../create_configuration_modal/create_configuration_modal";
+import { QuickEvent } from "../create_configuration_modal/create_configuration_modal";
 
-function downloadConfiguration(events: Event[]) {
+function downloadConfiguration(events: QuickEvent[]) {
   const content = JSON.stringify(events);
   const eventsBlob = new Blob([content], { type: "application/json" });
   const url = URL.createObjectURL(eventsBlob);

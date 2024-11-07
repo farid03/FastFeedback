@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Alert, Button, Modal, Upload, UploadProps } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
-import { Event } from "../create_configuration_modal/create_configuration_modal";
+import { QuickEvent } from "../create_configuration_modal/create_configuration_modal";
 
 export type UploadConfigurationProps = {
-  setLectionState: (value: Event[]) => void;
+  setLectionState: (value: QuickEvent[]) => void;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -19,7 +19,7 @@ function UploadConfigurationModal({
   isOpen,
   onClose,
 }: UploadConfigurationProps) {
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<QuickEvent[]>([]);
   const noError: FileError = {
     hasError: false,
     errorText: "",

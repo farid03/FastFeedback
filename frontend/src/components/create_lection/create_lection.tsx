@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   CreateConfigurationModal,
-  Event,
+  QuickEvent,
 } from "./create_configuration_modal/create_configuration_modal";
 import downloadConfiguration from "./download_configuration/download_configuration";
 import UploadConfigurationModal from "./upload_configuration_modal/upload_configuration_modal";
@@ -14,10 +14,10 @@ export type CreateLectionResponse = {
   sessionId: string;
 };
 
-const getLectionId = async () => {
+const getLectionId = async (events: QuickEvent[]) => {
   const response: Response = await fetch("http://94.19.121.253/lections", {
     method: "POST",
-    body: JSON.stringify([]),
+    body: JSON.stringify(events),
     headers: {
       "Content-Type": "application/json",
     },
@@ -33,7 +33,7 @@ export const CreateLection = () => {
   const navigate = useNavigate();
   //const [cookies, setCookie] = useCookies();
 
-  const [lectionState, setLectionState] = useState<Event[]>([]);
+  const [lectionState, setLectionState] = useState<QuickEvent[]>([]);
   const [isCreationModalOpen, setIsCreationModalOpen] =
     useState<boolean>(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState<boolean>(false);
@@ -51,7 +51,7 @@ export const CreateLection = () => {
       </Button>
       <Button
         onClick={async () => {
-          const lectionId = await getLectionId();
+          const lectionId = await getLectionId(lectionState);
           navigate(`/lection/teacher/${lectionId}`);
         }}
         type="primary"
