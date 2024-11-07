@@ -3,6 +3,7 @@ package com.feedback.fast.service
 import com.feedback.fast.dto.EventDto
 import com.feedback.fast.dto.PollAnswerDto
 import com.feedback.fast.dto.PollStatDto
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -12,6 +13,7 @@ class EventInfoService() {
     private val lictionsEvents = mutableMapOf<String, List<EventDto>>()
     private val lectionsPollStatsDto = mutableMapOf<String, PollStatDto>()
     private val lectionsWithCurrentEvent = mutableMapOf<String, Int>()
+    private val lectionPollsWithTimeout = mutableMapOf<String, Long>()
 
 
     fun saveEvents(uuid: String, events: List<EventDto>) {
@@ -36,6 +38,7 @@ class EventInfoService() {
     fun getStat(lectionId: String, pollId: Int): PollStatDto {
         val stat = lectionsPollStatsDto[lectionId] ?: throw IllegalArgumentException("Poll with id $pollId not found")
         stat.connectedUsersCount = lectionsWithConnectedUsersCount[lectionId] ?: 0
+        stat.secondsBeforeTimeoutPoll = lectionPollsWithTimeout[lectionId] ?: 0
         return stat
     }
 
@@ -44,14 +47,23 @@ class EventInfoService() {
             ?: throw IllegalArgumentException("Event with id $eventId not found")
         lectionsWithCurrentEvent[lectionId] = eventId
         lectionsPollStatsDto[lectionId] = PollStatDto()
-
         if (event.timeout != null) {
+            lectionPollsWithTimeout[lectionId] = event.timeout
             Timer().schedule(object : TimerTask() {
                 override fun run() {
                     lectionsWithCurrentEvent.remove(lectionId)
                     lectionsPollStatsDto.remove(lectionId)
+                    lectionPollsWithTimeout.remove(lectionId)
                 }
             }, event.timeout * 1000)
+        }
+    }
+
+    @Scheduled(cron = "*/1 * * * * *")
+    fun performTaskWithCron() {
+        lectionPollsWithTimeout.entries.removeIf { it.value <= 0 }
+        lectionPollsWithTimeout.forEach { (key, value) ->
+            lectionPollsWithTimeout[key] = value - 1
         }
     }
 
