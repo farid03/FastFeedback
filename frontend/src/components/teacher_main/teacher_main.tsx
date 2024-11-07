@@ -146,19 +146,21 @@ export const TeacherMain = () => {
 
   return (
     <div className="teacher-main">
-      <Flex>
+      <Flex gap={150}>
         <QRCode
           value={`http://fastfeedback.sknt.ru/lection/student/${lectionId}`}
+          size={450}
         />
-        <Flex>
+        <Flex vertical={true} gap="medium">
           <div className="progress-container">
-            <Flex>
+            <Flex gap="large">
               <Progress
                 type="dashboard"
                 percent={Math.round(((currentStats.pon_level - 1) / 2) * 100)}
                 strokeColor={twoColors}
                 status="active"
                 format={(precent) => `Пон: ${precent}`}
+                size={[300, 300]}
               />
               <Progress
                 type="dashboard"
@@ -166,6 +168,7 @@ export const TeacherMain = () => {
                 strokeColor={twoColors}
                 status="active"
                 format={(precent) => `Вайб: ${precent}`}
+                size={[300, 300]}
               />
             </Flex>
           </div>
@@ -173,6 +176,7 @@ export const TeacherMain = () => {
             className="start-event"
             type="primary"
             onClick={() => setIsEventPickerOpen(true)}
+            size="large"
           >
             Начать событие
           </Button>
