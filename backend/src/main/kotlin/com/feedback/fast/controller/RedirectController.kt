@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 class RedirectController {
     @RequestMapping("/**")
     fun redirectToHome(): String {
-        return "forward:/index.html"
+        return "forward:/"
     }
 }
 
