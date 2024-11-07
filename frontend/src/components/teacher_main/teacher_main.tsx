@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
-import { useCookies } from "react-cookie";
+//import { useCookies } from "react-cookie";
 import { Progress, ProgressProps, QRCode, Button, Flex } from "antd";
 
 import "./teacher_main.css";
@@ -112,7 +112,7 @@ export const TeacherMain = () => {
   });
 
   const { lectionId } = useParams() as { lectionId: string };
-  const [cookies] = useCookies(["token"]);
+  //const [cookies] = useCookies(["token"]);
 
   //const token: string | undefined = cookies["token"];
   const token = "placeholder";
@@ -127,26 +127,20 @@ export const TeacherMain = () => {
     return () => clearInterval(id);
   }, [token, lectionId, setCurrentStats]);
 
-  const [events, setEvents] = useState<QuickEvent[]>([
-    {
-      id: 0,
-      type: "poll",
-      text: "Попу мыл?",
-      answers: [],
-      correctAnswerId: 0,
-    },
-  ]);
+  const [events, setEvents] = useState<QuickEvent[]>([]);
 
   useEffect(() => {
     if (!token || !lectionId) return;
     getAllEvents(lectionId, token, setEvents);
   }, [token, lectionId, setEvents]);
 
-  const [isEventPickerOpen, setIsEventPickerOpen] = useState<boolean>(true);
+  const [isEventPickerOpen, setIsEventPickerOpen] = useState<boolean>(false);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const [currentEvent, setCurrentEvent] = useState<QuickEvent | undefined>();
+
+  const [isEventEnded, setIsEventEnded] = useState<boolean>(false);
 
   if (!token) return <Navigate to="/create-lection" />;
 
@@ -187,14 +181,12 @@ export const TeacherMain = () => {
       {!!currentEvent && (
         <TeacherEventModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-          isEventEnded={true}
-          currentEventStats={{
-            connected_users_count: 10,
-            completed_poll_count: 8,
-            correct_responces_count: 0,
-          }}
+          onClose={() => isEventEnded && setIsModalOpen(false)}
+          isEventEnded={isEventEnded}
           currentEvent={currentEvent}
+          stopEvent={() =>
+            stopCurrentEvent(lectionId, token, () => setIsEventEnded(true))
+          }
         />
       )}
       <EventPickerModal
