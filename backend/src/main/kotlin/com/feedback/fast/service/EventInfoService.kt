@@ -1,5 +1,6 @@
 package com.feedback.fast.service
 
+import com.feedback.fast.dto.CurrentEventDto
 import com.feedback.fast.dto.EventDto
 import com.feedback.fast.dto.PollAnswerDto
 import com.feedback.fast.dto.PollStatDto
@@ -78,5 +79,17 @@ class EventInfoService() {
 
     fun updateConnectedUsers(lectionId: String, count: Int) {
         lectionsWithConnectedUsersCount[lectionId] = count
+    }
+
+    fun getCurrentEventDto(lectionId: String): CurrentEventDto {
+        val currentEventId = lectionsWithCurrentEvent[lectionId]
+        val event = currentEventId?.let { id ->
+            lictionsEvents[lectionId]?.find { it.id == id }
+        }
+        val timeoutSeconds = lectionPollsWithTimeout[lectionId]
+        return CurrentEventDto(
+            currentEventDto = event,
+            secondsBeforeTimeout = timeoutSeconds
+        )
     }
 }
