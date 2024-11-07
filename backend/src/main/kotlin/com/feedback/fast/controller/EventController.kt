@@ -1,5 +1,6 @@
 package com.feedback.fast.controller
 
+import com.feedback.fast.dto.EventDto
 import com.feedback.fast.service.EventService
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType.APPLICATION_JSON_VALUE
@@ -14,6 +15,11 @@ import org.springframework.web.bind.annotation.*
 class EventController(
     private val eventService: EventService,
 ) {
+    @GetMapping
+    fun get(@PathVariable("lection_id") lectionId: String): ResponseEntity<List<EventDto>> {
+        return ResponseEntity<List<EventDto>>(eventService.getLectionEvents(lectionId), HttpStatus.OK)
+    }
+
     @PostMapping("/{event_id}")
     fun start(
         @PathVariable("lection_id") lectionId: String,

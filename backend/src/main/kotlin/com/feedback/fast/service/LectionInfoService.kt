@@ -4,11 +4,11 @@ import com.feedback.fast.dto.StatResponseDto
 import org.springframework.stereotype.Service
 
 @Service
-class LectionInfoService {
-    private val lectionsWithUserCount = mutableMapOf<String, Long>()
+class LectionInfoService(
+    private val eventInfoService: EventInfoService
+) {
+    private val lectionsWithUserCount = mutableMapOf<String, Int>()
     private val lectionsWithStatLevels = mutableMapOf<String, StatResponseDto>()
-    private val lectionsWithCurrentEvent = mutableMapOf<String, Int>()
-
     fun createLection(uuid: String) {
         lectionsWithUserCount[uuid] = 0
         lectionsWithStatLevels[uuid] = StatResponseDto()
@@ -16,9 +16,20 @@ class LectionInfoService {
 
     fun isLectionStarted(uuid: String): Boolean {
         return lectionsWithUserCount[uuid]?.let {
-            lectionsWithUserCount[uuid] = it + 1
             true
         } ?: false
+    }
+
+    fun updateConnectedUsers(uuid: String) {
+        val currentCount = lectionsWithUserCount[uuid]
+
+        if (currentCount != null) {
+            lectionsWithUserCount[uuid] = currentCount + 1
+
+            eventInfoService.updateConnectedUsers(uuid, lectionsWithUserCount[uuid]!!)
+        } else {
+            throw RuntimeException("Lection with uuid $uuid not found")
+        }
     }
 
     fun getLectionStats(uuid: String): StatResponseDto {
@@ -43,11 +54,7 @@ class LectionInfoService {
         lectionsWithStatLevels[uuid] = stat
     }
 
-    fun startEvent(uuid: String, eventId: Int) {
-        lectionsWithCurrentEvent[uuid] = eventId
-    }
-
-    fun stopEvent(uuid: String) {
-        lectionsWithCurrentEvent.remove(uuid)
+    fun getCurrentUsersCount(uuid: String): Int {
+        return lectionsWithUserCount[uuid]!!
     }
 }
