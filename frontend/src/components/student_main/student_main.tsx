@@ -44,7 +44,9 @@ function StudentMain() {
           <StudentIndicator val={vibe} setVal={setVibe} />
         </div>
       </div>
-      <Button className="hardNeponBtn">ЖЁСТКИЙ НЕПОН</Button>
+      <Button className="hardNeponBtn" type="primary" size="large">
+        ЖЁСТКИЙ НЕПОН
+      </Button>
     </div>
   );
 }

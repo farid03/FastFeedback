@@ -47,7 +47,9 @@ const router = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
-    <ConfigProvider theme={{ token: { colorPrimary: "#ce0071" } }}>
+    <ConfigProvider
+      theme={{ token: { colorPrimary: "#ce0071", borderRadius: 4 } }}
+    >
       <RouterProvider router={router} />
     </ConfigProvider>
   </React.StrictMode>,
