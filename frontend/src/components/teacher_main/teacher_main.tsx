@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { Progress, ProgressProps, QRCode, Button } from "antd";
+import { Progress, ProgressProps, QRCode, Button, Flex } from "antd";
 
 import "./teacher_main.css";
 import { TeacherEventModal } from "./teacher_event_modal/teacher_event_modal";
@@ -152,32 +152,38 @@ export const TeacherMain = () => {
 
   return (
     <div className="teacher-main">
-      <div className="progress-container">
-        <Progress
-          type="dashboard"
-          percent={Math.round(((currentStats.pon_level - 1) / 2) * 100)}
-          strokeColor={twoColors}
-          status="active"
-          format={(precent) => `Пон: ${precent}`}
+      <Flex>
+        <QRCode
+          value={`http://fastfeedback.sknt.ru/lection/student/${lectionId}`}
         />
-        <Progress
-          type="dashboard"
-          percent={Math.round(((currentStats.vibe_level - 1) / 2) * 100)}
-          strokeColor={twoColors}
-          status="active"
-          format={(precent) => `Вайб: ${precent}`}
-        />
-      </div>
-      <QRCode
-        value={`http://fastfeedback.sknt.ru/lection/student/${lectionId}`}
-      />
-      <Button
-        className="start-event"
-        type="primary"
-        onClick={() => setIsEventPickerOpen(true)}
-      >
-        Начать событие
-      </Button>
+        <Flex>
+          <div className="progress-container">
+            <Flex>
+              <Progress
+                type="dashboard"
+                percent={Math.round(((currentStats.pon_level - 1) / 2) * 100)}
+                strokeColor={twoColors}
+                status="active"
+                format={(precent) => `Пон: ${precent}`}
+              />
+              <Progress
+                type="dashboard"
+                percent={Math.round(((currentStats.vibe_level - 1) / 2) * 100)}
+                strokeColor={twoColors}
+                status="active"
+                format={(precent) => `Вайб: ${precent}`}
+              />
+            </Flex>
+          </div>
+          <Button
+            className="start-event"
+            type="primary"
+            onClick={() => setIsEventPickerOpen(true)}
+          >
+            Начать событие
+          </Button>
+        </Flex>
+      </Flex>
       {!!currentEvent && (
         <TeacherEventModal
           isOpen={isModalOpen}
