@@ -51,7 +51,7 @@ class LectionInfoService(
         userStats[token] = StatResponseDto(vibeLevel = vibeLevel, ponLevel = ponLevel)
         val isNeeded = lectionsWithStatLevels[uuid].isNeedSoundNotification
         lectionsWithStatLevels[uuid] = calculateAverageStats(userStats.values)
-        lectionsWithStatLevels[uuid].isNeedSoundNotification = isNeeded
+        lectionsWithStatLevels[uuid]?.isNeedSoundNotification = isNeeded
     }
 
     fun pressButton(uuid: String) {
