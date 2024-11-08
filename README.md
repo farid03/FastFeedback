@@ -1,23 +1,25 @@
-# Lecture FastFeedback
+# FastFeedback
 
-## Frontend Setup
+## Описание
 
-1. Install nvm (Node Version Manager)
-1. In the root of the repo (NOT! in /frontend) use `nvm install`
-1. In /frontend use `npm install`
+Приложение для внедрения quick-time ивентов и реакций в процесс проведения лекции.
+Если вы преподаватель, с FastFeedback вам не придётся гадать, понимают ли вас студенты или уже давно сдались: они сами будут тыкать свой ВАЙБ и ПОН, а вам останется только поглядывать на показатели и корректировать стиль изложения материала. Если же вы студент-стесняшка, то теперь, если вы вылетели на лекции, вам больше не нужно мучаться, ища в себе силы сказать преподу об этом, просто нажимайте ЖЁСТКИЙ НЕПОН.
 
+## Инструменты разработки
 
-Now you are ready!
+### Frontend Setup
 
+1. Установите nvm (Node Version Manager)
+1. В корне репозитория (НЕ! в директоии /frontend) выполните `nvm install`
+1. Перейдите в директорию /frontend и выполните `npm install`
 
-To run frontend in development mode from /frontend use `npm start`. This will
-instantiate a fast-reload webpack server that will bundle and serve frontend,
-automatically reloading on every change in the codebase.
+Чтобы запустить фронтенд в режиме разработчика, из директории /frontend выполните команду `npm start`.
+Это запустит сервер разработчика, который будет отдавать фронтенд на адресе `localhost`, автоматически перезагружаю его при изменении исходников.
 
+Чтобы собрать релизную версию, из директории /frontend выполните `npm run build`. Эта команда автоматически соберёт все артефакты и сложит их в /frontend/build.
 
-To build production frontend from /frontend use `npm run build`. This will automatically
-place every build artefact into /frontend/build.
+### Backend Setup
 
-## Backend Setup
+Для сборки и запуска из корня репозитория запустите `./gradlew bootRun`
 
-In the root of the repo use `./gradlew bootRun`
+## Процесс развёртывания
