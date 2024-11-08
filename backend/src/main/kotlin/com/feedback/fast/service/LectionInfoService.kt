@@ -36,7 +36,11 @@ class LectionInfoService(
     fun getLectionStats(uuid: String): StatResponseDto {
         val stat = lectionsWithStatLevels[uuid] ?: throw RuntimeException("Lection $uuid not found")
         val responseStat = stat.copy()
-        lectionsWithStatLevels[uuid] = stat.copy(isNeedSoundNotification = false)
+        if (responseStat.isNeedSoundNotification) {
+            lectionsWithStatLevels[uuid] = stat.copy(isNeedSoundNotification = false)
+        } else {
+            lectionsWithStatLevel[uuid] = stat.copy()
+        }
         return responseStat
     }
 
