@@ -22,6 +22,10 @@
 
 Для сборки и запуска из корня репозитория запустите `./gradlew bootRun`
 
+### CI/CD
+
+Каждый влитый PR в ветку main приводит к сборке и деплою frontend и backend приложений на сервер.
+
 ### Презентация
 
 https://docs.google.com/presentation/d/1xfq2ATV42b-UzJxnoMFj5jCfvqElTXNUtL_omQKJ4xo
