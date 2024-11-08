@@ -39,7 +39,7 @@ class LectionInfoService(
         if (responseStat.isNeedSoundNotification) {
             lectionsWithStatLevels[uuid] = stat.copy(isNeedSoundNotification = false)
         } else {
-            lectionsWithStatLevel[uuid] = stat.copy()
+            lectionsWithStatLevels[uuid] = stat.copy()
         }
         return responseStat
     }
