@@ -79,7 +79,7 @@ export const TeacherEventModal = ({
   if (!token) return <Navigate to="/create-lection" />;
 
   const onClose = () => {
-    setCurrentEventStats(undefined);
+    isEventEnded && setCurrentEventStats(undefined);
 
     onCloseProp();
   };
