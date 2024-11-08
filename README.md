@@ -22,4 +22,6 @@
 
 Для сборки и запуска из корня репозитория запустите `./gradlew bootRun`
 
-## Процесс развёртывания
+### Презентация
+
+https://docs.google.com/presentation/d/1xfq2ATV42b-UzJxnoMFj5jCfvqElTXNUtL_omQKJ4xo
