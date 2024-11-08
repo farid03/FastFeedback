@@ -105,12 +105,16 @@ const stopCurrentEvent = async (
   onSuccess();
 };
 
-const playNePonSound = () => {
-  const soundUrl =
-    "https://www.myinstants.com/media/sounds/red-siren-alert.mp3";
-  const sound = new Audio(soundUrl);
-  sound.play();
-};
+const playNePonSound =
+  (cooldown: boolean | undefined, setCooldown: () => void) => () => {
+    const soundUrl =
+      "https://www.myinstants.com/media/sounds/red-siren-alert.mp3";
+    const sound = new Audio(soundUrl);
+    if (!cooldown) {
+      sound.play();
+      setCooldown();
+    }
+  };
 
 export const TeacherMain = () => {
   const [currentStats, setCurrentStats] = useState<LectionStats>({
@@ -119,19 +123,28 @@ export const TeacherMain = () => {
   });
 
   const { lectionId } = useParams() as { lectionId: string };
-  const [cookies] = useCookies([`tokenLector`]);
+  const [cookies, setCookie] = useCookies([`tokenLector`, "cooldown"]);
 
   const token: string | undefined = cookies[`tokenLector`];
+  const cooldown: boolean | undefined = cookies["cooldown"];
 
   useEffect(() => {
     if (!token || !lectionId) return;
     const id = setInterval(
-      () => getCurrentStats(lectionId, token, setCurrentStats, playNePonSound),
-      5000,
+      () =>
+        getCurrentStats(
+          lectionId,
+          token,
+          setCurrentStats,
+          playNePonSound(cooldown, () =>
+            setCookie("cooldown", true, { maxAge: 10 }),
+          ),
+        ),
+      500,
     );
 
     return () => clearInterval(id);
-  }, [token, lectionId, setCurrentStats]);
+  }, [token, lectionId, setCurrentStats, cooldown]);
 
   const [events, setEvents] = useState<QuickEvent[]>([]);
 

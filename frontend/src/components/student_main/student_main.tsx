@@ -75,11 +75,7 @@ const updateStats = async (
   updateCurrentEvent(currentInfo.current_event);
 };
 
-const fireTotalNepon = async (
-  lectionId: string,
-  token: string,
-  cooldown: () => void,
-) => {
+const fireTotalNepon = async (lectionId: string, token: string) => {
   const response: Response = await fetch(
     `http://fastfeedback.sknt.ru:8080/lections/${lectionId}/button`,
     {
@@ -91,16 +87,14 @@ const fireTotalNepon = async (
   );
 
   if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
-  cooldown();
 };
 
 function StudentMain() {
   const { lectionId } = useParams() as { lectionId: string };
 
-  const [cookies, setCookie] = useCookies([`token+${lectionId}`, "cooldown"]);
+  const [cookies, setCookie] = useCookies([`token+${lectionId}`]);
 
   const token: string | undefined = cookies[`token+${lectionId}`];
-  const cooldown: boolean | undefined = cookies["cooldown"];
 
   useEffect(() => {
     if (token) return;
@@ -135,7 +129,7 @@ function StudentMain() {
             setTimeout(() => setIsModalOpen(false), 5000);
           },
         ),
-      5000,
+      500,
     );
 
     return () => clearInterval(id);
@@ -167,12 +161,8 @@ function StudentMain() {
         </div>
       </div>
       <Button
-        disabled={cooldown}
         onClick={() => {
-          token &&
-            fireTotalNepon(lectionId, token, () =>
-              setCookie("cooldown", true, { maxAge: 300 }),
-            );
+          token && fireTotalNepon(lectionId, token);
         }}
         className="hardNePonBtn"
         type="primary"

@@ -63,14 +63,13 @@ export const TeacherEventModal = ({
   const token: string | undefined = cookies[`tokenLector`];
 
   useEffect(() => {
-    console.log(lectionId, token, isEventEnded);
     if (!lectionId || !token || isEventEnded) return;
     const id = setInterval(
       () =>
         getCurrentEventStats(lectionId, currentEvent.id, token, (stats) =>
           setCurrentEventStats(stats),
         ),
-      5000,
+      500,
     );
 
     return () => clearInterval(id);
