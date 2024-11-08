@@ -49,7 +49,7 @@ class LectionInfoService(
         val userStats = userLectionStats.getOrPut(uuid) { mutableMapOf() }
 
         userStats[token] = StatResponseDto(vibeLevel = vibeLevel, ponLevel = ponLevel)
-        val isNeeded = lectionsWithStatLevels[uuid].isNeedSoundNotification
+        val isNeeded = lectionsWithStatLevels[uuid]?.isNeedSoundNotification
         lectionsWithStatLevels[uuid] = calculateAverageStats(userStats.values)
         lectionsWithStatLevels[uuid]?.isNeedSoundNotification = isNeeded
     }
