@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input, InputNumber, Modal, Radio, Carousel } from "antd";
+import { Button, Input, Modal, Radio, Carousel } from "antd";
 import "./create_configuration_modal.css";
 
 const eventStyle: React.CSSProperties = {
@@ -151,7 +151,7 @@ export const CreateConfigurationModal = ({
                 </Button>
               </div>
             </div>
-
+            {/*
             <InputNumber
               size="large"
               className="modal-event-timeout-input"
@@ -163,7 +163,7 @@ export const CreateConfigurationModal = ({
                 if (value) setNewTimeout(value);
               }}
             />
-
+            */}
             <Button
               size="large"
               type="primary"

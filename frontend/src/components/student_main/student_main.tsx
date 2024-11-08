@@ -75,12 +75,32 @@ const updateStats = async (
   updateCurrentEvent(currentInfo.current_event);
 };
 
+const fireTotalNepon = async (
+  lectionId: string,
+  token: string,
+  cooldown: () => void,
+) => {
+  const response: Response = await fetch(
+    `http://fastfeedback.sknt.ru:8080/lections/${lectionId}/button`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!response.ok) throw new Error(`Something went wrong: ${response.status}`);
+  cooldown();
+};
+
 function StudentMain() {
   const { lectionId } = useParams() as { lectionId: string };
 
-  const [cookies, setCookie] = useCookies([`token+${lectionId}`]);
+  const [cookies, setCookie] = useCookies([`token+${lectionId}`, "cooldown"]);
 
   const token: string | undefined = cookies[`token+${lectionId}`];
+  const cooldown: boolean | undefined = cookies["cooldown"];
 
   useEffect(() => {
     if (token) return;
@@ -146,7 +166,18 @@ function StudentMain() {
           </div>
         </div>
       </div>
-      <Button className="hardNePonBtn" type="primary" size="large">
+      <Button
+        disabled={cooldown}
+        onClick={() => {
+          token &&
+            fireTotalNepon(lectionId, token, () =>
+              setCookie("cooldown", true, { maxAge: 300 }),
+            );
+        }}
+        className="hardNePonBtn"
+        type="primary"
+        size="large"
+      >
         <span>ЖЕСТКИЙ</span>
         <span>НЕПОН</span>
       </Button>
