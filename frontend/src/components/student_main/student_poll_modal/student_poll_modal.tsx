@@ -62,7 +62,7 @@ export const StudentPollModal = ({
     setValue(e.target.value);
   };
 
-  if (!token) return <Navigate to="/lection/connect" />;
+  if (!token && isOpen) return <Navigate to="/lection/connect" />;
 
   return (
     <Modal
@@ -108,16 +108,17 @@ export const StudentPollModal = ({
               disabled={alreadyAnswered}
               type="primary"
               onClick={() => {
-                submitAnswer(
-                  lectionId,
-                  currentEvent.id,
-                  currentEvent.answers[value],
-                  token,
-                  () => {
-                    setAlreadyAnswered(true);
-                    setTimeout(() => onClose(), 5000);
-                  },
-                );
+                token &&
+                  submitAnswer(
+                    lectionId,
+                    currentEvent.id,
+                    currentEvent.answers[value],
+                    token,
+                    () => {
+                      setAlreadyAnswered(true);
+                      setTimeout(() => onClose(), 5000);
+                    },
+                  );
               }}
             >
               Отправить ответ
