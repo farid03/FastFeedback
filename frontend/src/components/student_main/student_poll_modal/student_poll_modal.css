@@ -1,0 +1,16 @@
+.student-event-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.student-event-header {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.options-block {
+  display: flex;
+  flex-direction: column;
+}

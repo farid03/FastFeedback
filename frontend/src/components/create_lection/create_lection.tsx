@@ -36,7 +36,7 @@ const getLectionId = async (
 
 export const CreateLection = () => {
   const navigate = useNavigate();
-  const [, setCookie] = useCookies(["token"]);
+  const [, setCookie] = useCookies([`tokenLector`]);
 
   const [lectionState, setLectionState] = useState<QuickEvent[]>([]);
   const [isCreationModalOpen, setIsCreationModalOpen] =
@@ -62,7 +62,7 @@ export const CreateLection = () => {
       <Button
         onClick={async () => {
           const lectionId = await getLectionId(lectionState, (token: string) =>
-            setCookie("token", token),
+            setCookie("tokenLector", token),
           );
           navigate(`/lection/teacher/${lectionId}`);
         }}

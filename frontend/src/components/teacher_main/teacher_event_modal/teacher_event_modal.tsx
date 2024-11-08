@@ -49,7 +49,7 @@ const getCurrentEventStats = async (
 
 export const TeacherEventModal = ({
   isOpen,
-  onClose,
+  onClose: onCloseProp,
   currentEvent,
   isEventEnded,
   stopEvent,
@@ -58,9 +58,9 @@ export const TeacherEventModal = ({
 
   const { lectionId } = useParams() as { lectionId: string };
 
-  const [cookies] = useCookies(["token"]);
+  const [cookies] = useCookies([`tokenLector`]);
 
-  const token: string | undefined = cookies["token"];
+  const token: string | undefined = cookies[`tokenLector`];
 
   useEffect(() => {
     console.log(lectionId, token, isEventEnded);
@@ -78,7 +78,11 @@ export const TeacherEventModal = ({
 
   if (!token) return <Navigate to="/create-lection" />;
 
-  console.log(currentEvent.correct_answer_id);
+  const onClose = () => {
+    setCurrentEventStats(undefined);
+
+    onCloseProp();
+  };
 
   return (
     <Modal open={isOpen} onClose={onClose} onCancel={onClose} footer={[]}>

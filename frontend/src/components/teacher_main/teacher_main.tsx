@@ -119,9 +119,9 @@ export const TeacherMain = () => {
   });
 
   const { lectionId } = useParams() as { lectionId: string };
-  const [cookies] = useCookies(["token"]);
+  const [cookies] = useCookies([`tokenLector`]);
 
-  const token: string | undefined = cookies["token"];
+  const token: string | undefined = cookies[`tokenLector`];
 
   useEffect(() => {
     if (!token || !lectionId) return;
@@ -206,6 +206,7 @@ export const TeacherMain = () => {
         pickEvent={(event) => {
           startEvent(lectionId, token, event, () => {
             setCurrentEvent(event);
+            setIsEventEnded(false);
             setIsEventPickerOpen(false);
             setIsModalOpen(true);
           });
